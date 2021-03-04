@@ -37,10 +37,18 @@ public class ServerThread implements Runnable {
                 System.out.println("serverino in ascolto...");
                 richiesta = in.readLine();
                 System.out.println("stringa dal client: " + richiesta);
-                out.println("Caratteri: "+richiesta.length());
+                int i=Integer.parseInt(richiesta);
+                Thread[] t=new Thread[i];
+                for(int f=i;f>0;f--){
+                    
+                    t[f-1]=new Thread( new Somme(f));
+                }
+                for(int f=i;f>0;f--){
+                    t[f-1].start();  
+                    t[f-1].stop();
+                }
+                System.out.println(ServerMultiThread.m);
             }
-
-            out.close();
             clientSocket.close();
 
             System.out.println("chiusura connessione effettuata");
